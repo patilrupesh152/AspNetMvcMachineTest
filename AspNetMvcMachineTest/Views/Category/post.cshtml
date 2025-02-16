@@ -1,0 +1,24 @@
+﻿@model AspNetMvcMachineTest.Models.Category_model
+
+<h2>Create New Category</h2>
+@using (Html.BeginForm("Postdata", "Category", FormMethod.Post))
+{
+    <div class="col-md-3">
+        @Html.HiddenFor(x => x.CategoryId)
+        <div class="form-group mb-4">
+
+            @Html.TextBoxFor(x => x.CategoryName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.CategoryName, "", new { @class = "text-danger" })
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">save</button>
+    </div>
+}
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+
+

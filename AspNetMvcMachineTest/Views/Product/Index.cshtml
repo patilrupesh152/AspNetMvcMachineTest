@@ -1,0 +1,90 @@
+﻿@model List<Product_model>
+
+<h2>Product List</h2>
+
+<p>
+    <a asp-action="Postproduct" class="btn btn-primary">Add New Product</a>
+</p>
+<p>
+    <a asp-controller="Category" asp-action="Post" class="btn btn-primary">Add New Category</a>
+</p>
+
+<!-- Product Table -->
+<table id="productTable" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ProductId</th>
+            <th>ProductName</th>
+            <th>Category Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductId</td>
+                <td>@item.ProductName</td>
+                <td>@item.Category.CategoryName</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ProductId }, new
+                        {
+                            @class = "delete-link",
+                            onclick = "return confirmDelete(event);"
+                        })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    @if (ViewBag.CurrentPage > 1)
+    {
+        <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })">Previous</a>
+    }
+
+    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+    {
+        <a href="@Url.Action("Index", new { page = i })">@i</a>
+    }
+
+    @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+    {
+        <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })">Next</a>
+    }
+</div>
+
+<script>
+    function confirmDelete(event) {
+        debugger
+        event.preventDefault(); // Prevent default behavior
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, keep it'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = event.target.href;
+            }
+        });
+
+        return false; // Prevent the link from being followed immediately
+    }
+</script>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: '@TempData["SuccessMessage"]'
+        });
+    </script>
+}

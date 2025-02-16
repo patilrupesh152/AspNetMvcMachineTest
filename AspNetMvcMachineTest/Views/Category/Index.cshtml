@@ -1,0 +1,67 @@
+﻿@model List<Category_model>
+
+
+<h2>Category List</h2>
+
+<p>
+    <a asp-action="post" class="btn btn-primary">Add New Category</a>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+
+                <th>Category Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>@item.CategoryName</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId }, new
+                            {
+                                @class = "delete-link",
+                                onclick = "return confirmDelete(event);"
+                            })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <script>
+        function confirmDelete(event) {
+            debugger
+            event.preventDefault(); // Prevent default behavior
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, keep it'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = event.target.href;
+                }
+            });
+
+            return false; // Prevent the link from being followed immediately
+        }
+    </script>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '@TempData["SuccessMessage"]'
+            });
+        </script>
+    }

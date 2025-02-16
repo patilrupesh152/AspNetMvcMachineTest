@@ -1,0 +1,41 @@
+/* Light Sky Blue background for body */
+body {
+    background-color: #87CEEB; /* Light Sky Blue */
+    color: #000;
+}
+
+/* Navbar dark */
+.navbar {
+    background-color: #222 !important;
+}
+
+    /* Navbar links white */
+    .navbar a {
+        color: white !important;
+    }
+
+/* Footer dark */
+.footer {
+    background-color: #222;
+    color: white;
+}
+
+/* Card styling */
+.card {
+    background-color: #f8f9fa;
+    color: black;
+    border-radius: 10px;
+    border: none;
+}
+
+/* Shadow effect for cards */
+.shadow-lg {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2) !important;
+}
+body {
+    background-color: #e0f7fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for body */
+}
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for cards */
+}
